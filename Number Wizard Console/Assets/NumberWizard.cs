@@ -5,14 +5,22 @@ using UnityEngine;
 public class NumberWizard : MonoBehaviour
 {
     // Global variables
-        int maxGuess = 1000; 
-        int minGuess = 1;
-        int guess = 500;
+        int maxGuess; 
+        int minGuess;
+        int guess;
 
-    // Start is called before the first frame update
+    // Start is called before the first frame update by the Unity engine
     void Start()
     {
+        StartGame();
+    }
 
+    void StartGame()
+    {
+
+        maxGuess = 1000; 
+        minGuess = 1;
+        guess = 500;
 
         Debug.Log("Welcome to number wizard, yo");
         Debug.Log("Pick a number");
@@ -20,7 +28,7 @@ public class NumberWizard : MonoBehaviour
         Debug.Log("Lowest: " + minGuess);
         Debug.Log("Tell me if your number is higher or lower than 500.");
         Debug.Log("Push Up = Higher, Push Down = Lower, Push Enter = Correct");
-        
+        maxGuess = maxGuess + 1;
     }
 
     // Update is called once per frame
@@ -28,21 +36,24 @@ public class NumberWizard : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow)) 
             {
-                Debug.Log("Up Arrow key was pressed.");
                 minGuess = guess;
-                guess = (maxGuess + minGuess) / 2;
-                Debug.Log(guess);
+                NextGuess();
             }
         else if (Input.GetKeyDown(KeyCode.DownArrow)) 
             {
-                Debug.Log("Down Arrow key was pressed.");
                 maxGuess = guess;
-                guess = (maxGuess + minGuess) / 2;
-                Debug.Log(guess);
+                NextGuess();
             }
         else if (Input.GetKeyDown(KeyCode.Return)) 
             {
                 Debug.Log("Return key was pressed.");
+                StartGame();
             }
+    }
+
+    void NextGuess()
+    {
+        guess = (maxGuess + minGuess) / 2;
+        Debug.Log("Is it higher or lower than " + guess);
     }
 }
